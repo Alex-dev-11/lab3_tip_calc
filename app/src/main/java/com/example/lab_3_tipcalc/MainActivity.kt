@@ -3,45 +3,58 @@ package com.example.lab_3_tipcalc
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.lab_3_tipcalc.ui.theme.Lab_3_TipCalcTheme
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
+// =============================================================================
+// ГЛАВНЫЙ КЛАСС ACTIVITY - ТОЧКА ВХОДА ПРИЛОЖЕНИЯ
+// =============================================================================
+
+/**
+ * MainActivity - основной класс приложения, наследуется от ComponentActivity
+ * Это точка входа в приложение, аналогично main() в C++
+ */
 class MainActivity : ComponentActivity() {
+    /**
+     * onCreate() - вызывается при создании Activity
+     * @param savedInstanceState - сохраненное состояние (если приложение было пересоздано)
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        // setContent { } - устанавливает Compose UI как содержимое экрана
         setContent {
-            Lab_3_TipCalcTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
+            DiscountCalculatorApp() // Запускаем наше приложение
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+// =============================================================================
+// КОРНЕВОЙ COMPOSABLE - НАСТРОЙКА ТЕМЫ И ОСНОВНОГО ЭКРАНА
+// =============================================================================
 
-@Preview(showBackground = true)
+/**
+ * DiscountCalculatorApp - корневая Composable функция приложения
+ * Отвечает за применение темы и отображение основного экрана
+ * @Composable - пометка что это функция UI (аналогично компоненту в React)
+ */
 @Composable
-fun GreetingPreview() {
-    Lab_3_TipCalcTheme {
-        Greeting("Android")
+fun DiscountCalculatorApp() {
+    // MaterialTheme - применяет Material Design стили ко всему приложению
+    MaterialTheme {
+        // Surface - контейнер с фоном и тенями (основная поверхность)
+        Surface(
+            modifier = Modifier.fillMaxSize(), // fillMaxSize() - занимает весь доступный размер
+            color = MaterialTheme.colorScheme.background // Цвет фона из темы
+        ) {
+            DiscountCalculatorScreen() // Основной экран калькулятора
+        }
     }
 }
